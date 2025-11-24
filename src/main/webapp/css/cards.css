@@ -1,0 +1,632 @@
+.hero {
+    padding: 5rem 2rem 4rem;
+    text-align: center;
+    animation: fadeInUp 1s ease;
+    margin-top: 5%;
+}
+body{
+    background-color: black;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hero-title {
+    font-size: 4.5rem;
+    font-weight: 750;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(135deg, #ffd700 0%, #fff 50%, #00d4ff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: titleShine 3s ease-in-out infinite;
+    text-shadow: 0 0 80px rgba(255, 215, 0, 0.5);
+}
+
+body.light-mode .hero-title {
+    background: linear-gradient(90deg, #ffbe0b,#ffea8e);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 30px;
+    padding-bottom: 10px;
+    font-weight: 700;
+}
+
+@keyframes titleShine {
+
+    0%,
+    100% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+
+
+.hero-subtitle {
+    font-size: 1.3rem;
+    color: rgba(255, 255, 255, 0.8);
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.8;
+    animation: fadeInUp 1s ease 0.2s both;
+}
+
+body.light-mode .hero-subtitle {
+    color: rgba(0, 0, 0, 0.8);
+}
+
+.filters {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    padding: 2rem;
+    animation: fadeInUp 1s ease 0.4s both;
+}
+
+.filter-btn {
+    padding: 1rem 2rem;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 187, 0, 0.562);
+    color: #fff;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    font-size: 1.1rem;
+    font-weight: 600;
+    position: relative;
+    overflow: hidden;
+}
+
+body.light-mode .filter-btn {
+    background: rgba(0, 0, 0, 0.05);
+    border: 2px solid rgba(255, 187, 0, 0.7);
+    color: #000;
+}
+
+.filter-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgb(0 0 0 / 30%), rgb(255 160 37 / 30%));
+    transition: all 0.5s ease;
+    transform: translate(-50%, -50%);
+}
+
+.filter-btn:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.filter-btn:hover {
+    border-color: #ffd700;
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(255, 215, 0, 0.4);
+}
+
+.filter-btn.active {
+    background: linear-gradient(135deg, rgb(0 0 0 / 30%), rgb(255 160 37 / 30%));
+    border-color: #ffd700;
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+}
+
+body.light-mode .filter-btn.active {
+    background: linear-gradient(135deg, rgb(255 215 0 / 20%), rgb(255 160 37 / 30%));
+}
+
+.filter-btn span {
+    position: relative;
+    z-index: 1;
+}
+
+.inventory {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    gap: 2.5rem;
+    animation: fadeInUp 1s ease 0.6s both;
+}
+
+.car-card {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(20px);
+    border: 2px solid rgba(255, 215, 0, 0.2);
+    border-radius: 24px;
+    overflow: hidden;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    position: relative;
+    animation: cardSlideIn 0.6s ease backwards;
+}
+
+body.light-mode .car-card {
+    background: rgba(255, 255, 255, 0.9);
+    border: 2px solid rgba(255, 215, 0, 0.4);
+}
+
+.car-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgb(44, 26, 4), rgba(0, 0, 0, 0.1));
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    z-index: 0;
+}
+
+body.light-mode .car-card::before {
+    background: linear-gradient(135deg, rgb(255, 245, 200), rgba(255, 215, 0, 0.1));
+}
+
+.car-card:hover::before {
+    opacity: 1;
+}
+
+.car-card:hover {
+    transform: translateY(-15px) scale(1.02);
+    border-color: #ffd700;
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.5),
+        0 0 50px rgba(255, 215, 0, 0.3),
+        inset 0 0 50px rgba(255, 215, 0, 0.1);
+}
+
+body.light-mode .car-card:hover {
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.2),
+        0 0 50px rgba(255, 215, 0, 0.4),
+        inset 0 0 50px rgba(255, 215, 0, 0.15);
+}
+
+.car-image {
+    width: 100%;
+    height: 280px;
+    position: relative;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.5s ease;
+}
+
+.car-card:hover .car-image {
+    transform: scale(1.1);
+}
+
+.car-image::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.7) 100%);
+    z-index: 1;
+}
+
+body.light-mode .car-image::before {
+    background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.3) 100%);
+}
+
+.badge {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    padding: 0.7rem 1.5rem;
+    background: linear-gradient(135deg, #ffd700, #ffed4e);
+    color: #000;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    z-index: 2;
+    box-shadow: 0 5px 20px rgba(255, 215, 0, 0.5);
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+.car-info {
+    padding: 2rem;
+    position: relative;
+    z-index: 1;
+}
+
+.car-brand {
+    font-size: 0.9rem;
+    color: #ffd700;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-bottom: 0.5rem;
+}
+
+body.light-mode .car-brand {
+    color: #d4a500;
+}
+
+.car-model {
+    font-size: 1.8rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(135deg, #ffd700 0%, #fff 50%, #00d4ff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+body.light-mode .car-model {
+    background: linear-gradient(135deg, #000, #d4a500);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.car-year {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+body.light-mode .car-year {
+    color: rgba(0, 0, 0, 0.6);
+}
+
+.car-specs {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+body.light-mode .car-specs {
+    border-bottom: 1px solid rgba(255, 215, 0, 0.4);
+}
+
+.spec {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.spec-label {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+body.light-mode .spec-label {
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.spec-value {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #fff;
+}
+
+body.light-mode .spec-value {
+    color: #000;
+}
+
+.car-price {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.price {
+    font-size: 1.7rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #ffd700, #ffed4e);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+body.light-mode .price {
+    background: linear-gradient(135deg, #d4a500, #c99700);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.view-btn {
+    padding: 0.9rem 2rem;
+    background-color: rgba(0, 0, 0, 0);
+    backdrop-filter: blur(10px);
+    border: 2px solid #ffd700;
+    color: #fff;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    font-size: 0.9rem;
+    font-weight: 500;
+    position: relative;
+    overflow: hidden;
+}
+
+body.light-mode .view-btn {
+    color: #000;
+    border: 2px solid #d4a500;
+}
+
+.view-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    transition: all 0.5s ease;
+    transform: translate(-50%, -50%);
+}
+
+.view-btn:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.view-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(255, 215, 0, 0.5);
+}
+
+body.light-mode .view-btn:hover {
+    box-shadow: 0 10px 30px rgba(212, 165, 0, 0.4);
+}
+
+.view-btn span {
+    position: relative;
+    z-index: 1;
+}
+
+/* Car buttons container */
+.car-buttons {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+/* Book Now button */
+.book-btn {
+    padding: 0.9rem 2rem;
+    background-color: rgba(0, 0, 0, 0);
+    backdrop-filter: blur(10px);
+    border: 2px solid #ffd700;
+    color: #fff;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    font-size: 0.9rem;
+    font-weight: 500;
+    position: relative;
+    overflow: hidden;
+}
+
+body.light-mode .book-btn {
+    color: #000;
+    border: 2px solid #d4a500;
+}
+
+/* Button shine/fill animation */
+.book-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    transition: all 0.5s ease;
+    transform: translate(-50%, -50%);
+}
+
+.book-btn:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+/* Hover animation */
+.book-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(255, 215, 0, 0.5);
+}
+
+body.light-mode .book-btn:hover {
+    box-shadow: 0 10px 30px rgba(212, 165, 0, 0.4);
+}
+
+/* Span wrapper (text stays above animation) */
+.book-btn span {
+    position: relative;
+    z-index: 1;
+}
+
+.car-price {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* space between price and buttons */
+}
+
+.price-row {
+    text-align: center; /* optional */
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.button-row {
+    display: flex;
+    justify-content: center;   /* center both buttons */
+    gap: 10px;                 /* spacing between buttons */
+}
+
+.view-btn, .book-btn {
+    padding: 8px 14px;
+    border-radius: 20px;
+    border: solid  rgba(212, 165, 0, 0.4);
+    cursor: pointer;
+}
+
+
+/* Responsive - stack buttons on mobile */
+@media (max-width: 768px) {
+    .car-buttons {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .view-btn,
+    .book-btn {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+
+/* MODAL WRAPPER */
+.details-modal {
+    position: fixed;
+    inset: 0;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(10px);
+    background: rgba(0,0,0,0.6);
+    z-index: 9999;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* -------- DARK/LIGHT MODE BASE -------- */
+.details-modal-content {
+    background: #111;
+    color: white;
+    border: 1px solid rgba(255, 215, 0, 0.25);
+    border-radius: 15px;
+}
+
+body.light-mode .details-modal-content {
+    background: white;
+    color: black;
+    border: 1px solid rgba(212, 165, 0, 0.4);
+}
+
+/* -------- TITLE -------- */
+#detailsTitle {
+    font-size: 2rem;
+    background: linear-gradient(135deg, #fff, #ffd700);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+body.light-mode #detailsTitle {
+    background: linear-gradient(135deg, #000, #d4a500);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* -------- CATEGORY -------- */
+.details-category {
+    font-size: 1rem;
+    letter-spacing: 2px;
+    color: #ffd700;
+}
+
+body.light-mode .details-category {
+    color: #c9a200;
+}
+
+/* -------- IMAGE -------- */
+.details-main-img {
+    border-radius: 12px;
+    box-shadow: 0 0 25px rgba(255,215,0,0.2);
+}
+
+body.light-mode .details-main-img {
+    box-shadow: 0 0 20px rgba(212,165,0,0.15);
+}
+
+/* -------- PRICE TAG -------- */
+.details-price-tag {
+    display: inline-block;
+    padding: 10px 25px;
+    background: linear-gradient(90deg, #ffd700, #ffef91);
+    color: black;
+    font-size: 1.4rem;
+    border-radius: 50px;
+    font-weight: bold;
+}
+
+body.light-mode .details-price-tag {
+    background: linear-gradient(90deg, #d4a500, #ffe8a0);
+}
+
+/* -------- SPECS GRID -------- */
+.details-spec-grid p strong {
+    color: #ffd700;
+}
+
+body.light-mode .details-spec-grid p strong {
+    color: #c9a200;
+}
+
+/* -------- FEATURES LIST -------- */
+.details-features-list li {
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding: 6px 0;
+}
+
+body.light-mode .details-features-list li {
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 2.5rem;
+    }
+
+    .inventory {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .orb {
+        display: none;
+    }
+}

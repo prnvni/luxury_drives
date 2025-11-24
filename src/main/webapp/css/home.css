@@ -1,0 +1,506 @@
+ :root {
+     /* Dark Mode Defaults */
+     --main-bg: #000000;
+     --main-text: #ffffff;
+     --highlight-color: #ffd700;
+     --card-bg: rgba(0, 0, 0, 0.8);
+     --card-border: rgba(255, 255, 255, 0.1);
+
+     /* Popular Cars Section Specifics */
+     --section-bg: #0d0d0d;
+     --section-text: #ffffff;
+     --car-name-text: #ffffff;
+ }
+
+ .light-mode {
+     /* Light Mode Overrides */
+     --main-bg: #f5f5f5;
+     --main-text: #000000;
+     --highlight-color: #ffd700;
+     --card-bg: rgba(255, 255, 255, 0.9);
+     --card-border: rgba(0, 0, 0, 0.1);
+
+     /* Popular Cars Section Specifics */
+     --section-bg: #ffffff;
+     --section-text: #000000;
+     --car-name-text: #000000;
+ }
+
+
+ body {
+     font-family: 'Montserrat', sans-serif;
+     overflow-x: hidden;
+     transition: background-color 0.3s, color 0.3s;
+ }
+
+ body.light-mode {
+     background-color: #f5f5f5;
+     color: #000;
+ }
+
+ .btn-lightmode {
+     padding: 8px 20px;
+     border-radius: 6px;
+     border: 1px solid rgba(255, 255, 255, 0.3);
+     background: transparent;
+     color: white;
+     cursor: pointer;
+     font-size: 14px;
+     font-weight: 600;
+     transition: all 0.3s;
+     font-family: 'Montserrat', sans-serif;
+ }
+
+ .btn-login {
+     padding: 8px 20px;
+     border-radius: 6px;
+     border: 1px solid rgba(255, 255, 255, 0.3);
+     background: transparent;
+     color: white;
+     cursor: pointer;
+     font-size: 14px;
+     font-weight: 600;
+     transition: all 0.3s;
+     font-family: 'Montserrat', sans-serif;
+ }
+
+ body.light-mode .btn-lightmode {
+     border: 1px solid rgba(0, 0, 0, 0.3);
+     color: #000;
+ }
+
+ body.light-mode .btn-login {
+     border: 1px solid rgba(0, 0, 0, 0.3);
+     color: #000;
+ }
+
+ .btn-lightmode:hover {
+     border-color: #ffd700;
+     color: #ffd700;
+ }
+
+ .btn-login:hover {
+     border-color: #ffd700;
+     color: #ffd700;
+ }
+
+ /* Hero Section */
+ .hero {
+     padding-top: 50px;
+     position: relative;
+     height: 100vh;
+     overflow: hidden;
+     margin-top:5%;
+ }
+
+ .hero-background {
+     position: absolute;
+     inset: 0;
+     z-index: 1;
+     background-color: rgb(0, 0, 0);
+     transition: background-color 0.3s;
+ }
+
+ body.light-mode .hero-background {
+     background-color: #ffffff;
+ }
+
+ .hero-text {
+     position: absolute;
+     top: 20%;
+     left: 50%;
+     transform: translate(-50%, -50%);
+     z-index: 2;
+     font-family: "Bebas Neue", sans-serif;
+     font-size: clamp(100px, 30vw, 225px);
+     font-style: normal;
+     font-weight: 400;
+     line-height: 1;
+     letter-spacing: 0.5px;
+     background: url('../other_imgs/825629_preview.jpg') center/cover;
+     background-clip: text;
+     -webkit-background-clip: text;
+     -webkit-text-fill-color: transparent;
+     text-transform: uppercase;
+     white-space: nowrap;
+     user-select: none;
+     text-align: center;
+     padding: 20px 0;
+     overflow: visible;
+ }
+
+ body.light-mode .hero-text {
+     background: url('../other_imgs/black-pattern-texture-background_737564-933.jpg') center/cover;
+     background-clip: text;
+     -webkit-background-clip: text;
+     -webkit-text-fill-color: transparent;
+     text-transform: uppercase;
+     white-space: nowrap;
+     user-select: none;
+     text-align: center;
+     padding: 20px 0;
+     overflow: visible;
+ }
+
+ .description-text {
+     position: absolute;
+     bottom: 8%;
+     left: 50%;
+     transform: translateX(-50%);
+     z-index: 4;
+     /* higher than car and hero text */
+     width: 70%;
+     max-width: 900px;
+     text-align: center;
+     color: white;
+     font-size: 1.1rem;
+     line-height: 1.6;
+     font-weight: 400;
+     font-family: 'Montserrat', sans-serif;
+ }
+
+ body.light-mode .description-text {
+     color: #000;
+ }
+
+
+ .car-cutout {
+     position: absolute;
+     top: 50%;
+     left: 50%;
+     transform: translate(-50%, -50%);
+     z-index: 3;
+     width: 85%;
+     max-width: 1900px;
+     height: auto;
+     object-fit: contain;
+     filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.5));
+ }
+
+ @media (max-width: 991px) {
+     .navbar-collapse {
+         margin-top: 1rem;
+     }
+
+     .navbar-nav {
+         gap: 0;
+     }
+
+     .nav-item {
+         padding: 0.5rem 0;
+     }
+
+     .btn-lightmode {
+         margin-top: 0.5rem;
+         width: 100%;
+     }
+ }
+
+ @media (max-width: 768px) {
+     .logo {
+         font-size: 1.4rem;
+     }
+ }
+
+ @media (max-width: 480px) {
+     .logo {
+         font-size: 16px;
+     }
+
+     .hero-text {
+         font-size: clamp(40px, 20vw, 100px);
+         line-height: 1;
+     }
+
+     .car-cutout {
+         width: 95%;
+     }
+ }
+
+ @media (max-height: 600px) and (orientation: landscape) {
+     .hero {
+         height: auto;
+         min-height: 100vh;
+         padding: 80px 0 20px;
+     }
+
+     .hero-text {
+         font-size: clamp(50px, 12vh, 150px);
+         line-height: 1;
+     }
+
+     .car-cutout {
+         width: 50%;
+         max-width: 600px;
+     }
+ }
+
+ /* popular cars carousel */
+
+ .popular-cars-section {
+     background-color: black;
+     padding: 0rem 0 4rem;
+     color: var(--carousel-text);
+     min-height: 80vh;
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     position: relative;
+ }
+
+ .popular-cars-title {
+     font-family: 'Bebas Neue', sans-serif;
+     font-size: 5rem;
+     font-weight: 400;
+     letter-spacing: 2px;
+     margin-bottom: 1rem;
+     text-align: center;
+     color:white;
+ }
+body.light-mode .popular-cars-title{
+	color:black;
+}
+
+ body.light-mode .popular-cars-section {
+     background-color: white;
+
+ }
+
+
+
+ 
+
+ .light-mode .red-gradient-text {
+     text-shadow: none;
+ }
+
+
+ .carousel-wrapper {
+     position: relative;
+     width: 100%;
+     max-width: 1400px;
+     height: 500px;
+     margin: -80px auto 0;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     perspective: 1000px;
+ }
+
+ #car-carousel-container {
+     position: relative;
+     width: 100%;
+     height: 100%;
+ }
+
+ .carousel-item {
+     position: absolute;
+     top: 0;
+     left: 50%;
+     transform: translateX(-50%) scale(0.6);
+     opacity: 0;
+     transition: all 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+     pointer-events: none;
+     width: 90%;
+     max-width: 900px;
+ }
+
+ .carousel-item img {
+     width: 100%;
+     height: 100%;
+     object-fit: contain;
+
+     transition: filter 0.7s, transform 0.7s;
+ }
+
+ /* ACTIVE CAR: Large and centered */
+ .carousel-item.active {
+     opacity: 1;
+     transform: translateX(-50%) scale(1);
+     z-index: 10;
+     pointer-events: auto;
+     filter: brightness(1) drop-shadow(0 20px 30px rgba(0, 0, 0, 0.2));
+ }
+
+ /* PREVIOUS CAR: Smaller, darker, and shifted left (The "shadow" car) */
+ .carousel-item.prev {
+     opacity: 0.6;
+     transform: translateX(-150%) scale(0.7) rotateY(15deg);
+     z-index: 5;
+     filter: brightness(80%);
+ }
+
+ /* NEXT CAR: Smaller, darker, and shifted right (The "shadow" car) */
+ .carousel-item.next {
+     opacity: 0.6;
+     transform: translateX(50%) scale(0.7) rotateY(-15deg);
+     z-index: 5;
+     filter: brightness(0.80%);
+ }
+
+ .light-mode .carousel-item.prev,
+ .light-mode .carousel-item.next {
+     filter: brightness(0.8) grayscale(0.5);
+ }
+
+ /* Carousel Controls (Arrows) */
+ .carousel-control {
+     position: absolute;
+     top: 50%;
+     transform: translateY(-50%);
+     background: none;
+     border: none;
+     color: rgb(255, 255, 255);
+     font-size: 3.5rem;
+     cursor: pointer;
+     transition: color 0.2s, transform 0.2s;
+     z-index: 20;
+     padding: 10px;
+     text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+ }
+
+ .carousel-control:hover {
+     color: white;
+     transform: translateY(-50%) scale(1.1);
+ }
+
+ .carousel-control.prev {
+     left: 0;
+     margin-left: 1rem;
+ }
+
+ .carousel-control.next {
+     right: 0;
+     margin-right: 1rem;
+ }
+
+
+ /* Car Details Card - Improved Visibility */
+ .car-details-card-container {
+     margin-top: 2rem;
+     width: 100%;
+     display: flex;
+     justify-content: center;
+     flex-direction: column;
+     align-items: center;
+     padding: 0 15px;
+     text-transform: uppercase;
+ }
+
+ .car-name {
+     font-family: 'Montserrat', sans-serif;
+     font-weight: 700;
+     font-size: 2.5rem;
+     margin-bottom: 1.5rem;
+     color: white;
+     text-align: center;
+     letter-spacing: 2px;
+ }
+
+ body.light-mode .car-name {
+     color: black;
+ }
+
+ .car-details-card {
+     background-color: rgba(0, 0, 0, 0.226);
+     color: white;
+     border-radius: 10px;
+     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+     display: flex;
+     justify-content: space-around;
+     padding: 1rem 2rem;
+     width: 100%;
+     max-width: 550px;
+ }
+
+
+ .detail-item {
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     text-align: center;
+     flex: 1;
+     padding: 0 10px;
+     border-right: 1px solid rgba(255, 255, 255, 0.1);
+ }
+
+ /* .detail-item:last-child {
+     border-right: none;
+ } */
+
+ .detail-item i {
+     font-size: 1.7rem;
+     color: white;
+     margin-bottom: 5px;
+ }
+
+
+ .detail-value {
+     font-weight: 700;
+     font-size: 1rem;
+     line-height: 1.2;
+ }
+
+ .detail-label {
+     font-size: 0.65rem;
+     opacity: 0.9;
+     font-weight: 400;
+ }
+
+ .car-price {
+     font-family: 'Bebas Neue', sans-serif;
+     font-size: 2.2rem;
+     font-weight: 700;
+     margin-top: 1rem;
+     color: white;
+     text-align: center;
+     text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+ }
+
+
+ body.light-mode .car-price {
+     color: black;
+ }
+
+
+ @media (max-width: 1024px) {
+     .carousel-wrapper {
+         height: 400px;
+     }
+
+     .popular-cars-title {
+         font-size: 2.5rem;
+     }
+
+     .carousel-item.prev,
+     .carousel-item.next {
+         opacity: 0;
+         transform: translateX(-50%) scale(0.4);
+         pointer-events: none;
+     }
+
+     .carousel-control {
+         font-size: 2rem;
+     }
+
+     .car-details-card {
+         padding: 0.8rem 1rem;
+         max-width: 320px;
+     }
+
+     .car-name {
+         font-size: 1.8rem;
+     }
+
+     .car-price {
+         font-size: 1.5rem;
+     }
+
+     .detail-value {
+         font-size: 0.8rem;
+     }
+
+     .detail-label {
+         font-size: 0.6rem;
+     }
+ }

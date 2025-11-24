@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Available Cars | ROXX Motors</title>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/common.css" rel="stylesheet">
+    <link href="../css/cards.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;900&family=Bebas+Neue&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg custom-nav">
+        <div class="container-fluid nav-container">
+            <div class="logo">LUXURY DRIVES</div>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="home.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="cards.html">Available Cars</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="form.html">Booking</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="faqpage.html">FAQ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="login.html">
+                            <button class="btn-login" id="login">Login</button></a>
+                    </li>
+                    <li class="nav-item">
+                        <button class="btn-lightmode" id="lightmode">Light Mode</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <h1 class="hero-title">Our Inventory</h1>
+        <p class="hero-subtitle">Discover our curated collection of premium automobiles.</p>
+    </section>
+
+    <!-- FILTER BUTTONS -->
+    <div class="filters">
+        <button class="filter-btn active">All Vehicles</button>
+        <button class="filter-btn">Luxury</button>
+        <button class="filter-btn">Sports</button>
+        <button class="filter-btn">SUV</button>
+        <button class="filter-btn">Sedan</button>
+    </div>
+
+    <!-- CAR GRID -->
+    <div class="inventory" id="inventory"></div>
+
+    <!-- ========================= -->
+    <!-- VIEW DETAILS MODAL (BOOTSTRAP STYLE) -->
+    <!-- ========================= -->
+    <div class="modal fade" id="detailsModal" tabindex="-1">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content details-modal-content">
+
+                <div class="modal-header">
+                    <h3 class="modal-title" id="detailsTitle"></h3>
+                    <button type="button" class="btn-close" id="closeDetails" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+
+                    <div class="container-fluid">
+
+                        <div class="row gy-4">
+
+                            <!-- IMAGE COLUMN -->
+                            <div class="col-12 col-md-5 text-center">
+                                <img id="detailsImage" src="" class="img-fluid rounded shadow" alt="Car Image">
+                                <div class="details-price-tag mt-3 fs-4 fw-bold">
+                                    AED <span id="detailsPrice"></span> / day
+                                </div>
+                            </div>
+
+                            <!-- DETAILS COLUMN -->
+                            <div class="col-12 col-md-7">
+
+                                <h5 class="text-warning" id="detailsCategory"></h5>
+
+                                <div class="row mt-3">
+                                    <div class="col-6"><strong>Year:</strong> <span id="detailsYear"></span></div>
+                                    <div class="col-6"><strong>Engine:</strong> <span id="detailsEngine"></span></div>
+                                    <div class="col-6 mt-2"><strong>Transmission:</strong> <span id="detailsTrans"></span></div>
+                                    <div class="col-6 mt-2"><strong>Drivetrain:</strong> <span id="detailsDrive"></span></div>
+                                    <div class="col-12 mt-2"><strong>Fuel Type:</strong> <span id="detailsFuel"></span></div>
+                                </div>
+
+                                <hr class="my-4">
+
+                                <h5>Features</h5>
+                                <ul id="detailsFeatures"></ul>
+
+                                <div id="detailsExtra" ></div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+    <script src="../js/cards.js"></script>
+    <script src="../js/common.js"></script>
+
+</body>
+
+</html>

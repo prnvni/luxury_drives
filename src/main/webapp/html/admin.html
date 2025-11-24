@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Luxury Drives</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="../css/common.css" rel="stylesheet">
+    <link href="../css/admin.css" rel="stylesheet">
+    
+</head>
+
+<body>
+    <main class="main-content" id="mainContent">
+        <div class="topbar">
+            <div class="topbar-logo">LUXURY DRIVES</div>
+            <ul class="topbar-nav">
+                <li><a href="admin.html" class="topbar-nav-link active" id="nav-dashboard" data-page="dashboard">Dashboard</a></li>
+                <li><a href="inventory.html" class="topbar-nav-link" id="nav-cars">Cars</a></li>
+                <li><a href="#" class="topbar-nav-link" id="nav-bookings" data-page="bookings">Bookings</a></li>
+            </ul>
+            <div class="topbar-right">
+                <button class="btn-mode" id="lightModeToggle"><i class="fas fa-moon"></i> Dark Mode</button>
+                <div class="admin-profile">
+                    <div class="admin-avatar">AD</div>
+                    <span class="admin-name"><a href="../html/home.html" >Admin</a></span>
+                </div>
+                <button class="topbar-mobile-toggle" id="mobileMenuToggle"><i class="fas fa-bars"></i></button>
+            </div>
+        </div>
+
+        <div class="dashboard-content">
+            <div id="dashboardPage" class="page-content">
+                <div class="page-header">
+                    <h1 class="page-title">Dashboard Overview</h1>
+                    <p class="page-subtitle">Welcome back! Here's what's happening with your luxury car rentals.</p>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div><div class="stat-value" id="totalCars">0</div><div class="stat-label">Total Cars</div></div>
+                            <div class="stat-icon yellow"><i class="fas fa-car"></i></div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div><div class="stat-value" id="availableCars">0</div><div class="stat-label">Available</div></div>
+                            <div class="stat-icon green"><i class="fas fa-check-circle"></i></div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div><div class="stat-value" id="bookedCars">0</div><div class="stat-label">Currently Booked</div></div>
+                            <div class="stat-icon blue"><i class="fas fa-calendar-check"></i></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <div class="table-header">
+                        <h3 class="table-title">Recent Bookings</h3>
+                        <button class="btn btn-secondary btn-sm">View All</button>
+                    </div>
+                    <table class="data-table">
+                        <thead><tr><th>Booking ID</th><th>Customer</th><th>Car</th><th>Pickup Date</th><th>Status</th></tr></thead>
+                        <tbody id="recentBookingsBody">
+    <!-- Filled dynamically -->
+						</tbody>
+
+                    </table>
+                </div>
+            </div>
+
+            <div id="bookingsPage" class="page-content hidden">
+                <div class="page-header">
+                    <h1 class="page-title">Manage Bookings</h1>
+                    <p class="page-subtitle">View and manage all customer bookings.</p>
+                </div>
+                <div class="table-container">
+                    <div class="table-header"><h3 class="table-title">All Bookings</h3></div>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Booking ID</th>
+                                <th>Customer Name</th>
+                                <th>Car</th>
+                                <th>Pickup Date</th>
+                                <th>Return Date</th>
+                                <th>Pickup Location</th>
+                                <th>Status</th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<script src="../js/common.js"></script>
+<script src="../js/admin.js"></script>
+
+</body>
+</html>

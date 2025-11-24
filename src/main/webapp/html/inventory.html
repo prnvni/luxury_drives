@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Inventory - Luxury Drives</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/admin.css" rel="stylesheet">
+</head>
+<body>
+    <main class="main-content" id="mainContent">
+        <div class="topbar">
+            <div class="topbar-logo">LUXURY DRIVES</div>
+            <ul class="topbar-nav">
+                <li><a href="admin.html" class="topbar-nav-link">Dashboard</a></li>
+                <li><a href="inventory.html" class="topbar-nav-link active">Cars</a></li>
+                <li><a href="admin.html" class="topbar-nav-link">Bookings</a></li>
+            </ul>
+            <div class="topbar-right">
+                <button class="btn-mode" id="lightModeToggle"><i class="fas fa-moon"></i> Dark Mode</button>
+                <div class="admin-profile">
+                    <div class="admin-avatar">AD</div>
+                    <span class="admin-name">Admin</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="dashboard-content">
+            <div class="page-header">
+                <h1 class="page-title">Manage Cars</h1>
+                <p class="page-subtitle">Add, edit, or remove vehicles from your inventory.</p>
+            </div>
+
+            <div class="table-container">
+                <div class="table-header">
+                    <h3 class="table-title">Vehicle Inventory</h3>
+                    <button class="btn btn-primary" id="addCarBtn"><i class="fas fa-plus"></i> Add New Car</button>
+                </div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Car</th>
+                            <th>Category</th>
+                            <th>Engine</th>
+                            <th>Transmission</th>
+                            <th>Price/Day</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="carTableBody">
+                        <!-- Cars loaded dynamically -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <!-- Add Car Modal -->
+    <div class="modal" id="addCarModal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h3 class="modal-title">Add New Car</h3>
+                <button class="modal-close" id="closeAddModal"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <form id="addCarForm" enctype="multipart/form-data">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label">Car ID</label>
+                            <input type="number" class="form-control" name="id" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Brand</label>
+                            <input type="text" class="form-control" name="brand" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Model</label>
+                            <input type="text" class="form-control" name="model" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Year</label>
+                            <input type="number" class="form-control" name="year" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Category</label>
+                            <select class="form-control" name="category" required>
+                                <option value="">Select category</option>
+                                <option value="Sports">Sports</option>
+                                <option value="Luxury">Luxury</option>
+                                <option value="SUV">SUV</option>
+                                <option value="Sedan">Sedan</option>
+                            </select>
+                        </div>
+                        <div class="form-group" id="extraFieldContainer" style="display:none;">
+						    <label class="form-label" id="extraFieldLabel"></label>
+						    <input type="number" class="form-control" id="extraFieldInput">
+						</div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Price per Day (AED)</label>
+                            <input type="number" class="form-control" name="price" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Engine</label>
+                            <input type="text" class="form-control" name="engine" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Transmission</label>
+                            <select class="form-control" name="transmission" required>
+                                <option value="">Select</option>
+                                <option value="Automatic">Automatic</option>
+                                <option value="Manual">Manual</option>
+                                <option value="PDK">PDK</option>
+                                <option value="DCT">DCT</option>
+                                <option value="7-Speed DCT">7-Speed DCT</option>
+                                <option value="8-Speed Auto">8-Speed Auto</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Drivetrain</label>
+                            <select class="form-control" name="drivetrain" required>
+                                <option value="">Select</option>
+                                <option value="AWD">AWD</option>
+                                <option value="RWD">RWD</option>
+                                <option value="FWD">FWD</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Fuel Type</label>
+                            <select class="form-control" name="fuelType" required>
+                                <option value="">Select</option>
+                                <option value="Premium Gasoline">Premium Gasoline</option>
+                                <option value="Diesel">Diesel</option>
+                                <option value="Electric">Electric</option>
+                                <option value="Hybrid">Hybrid</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Exterior Color</label>
+                            <input type="text" class="form-control" name="color" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Interior</label>
+                            <input type="text" class="form-control" name="interior" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Features (comma separated)</label>
+                        <textarea class="form-control" name="features" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Image</label>
+                        <input type="file" class="form-control" name="image" accept="image/*">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="cancelAdd">Cancel</button>
+                <button class="btn btn-primary" type="submit" form="addCarForm">Add Car</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Car Modal -->
+    <div class="modal" id="editCarModal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h3 class="modal-title">Edit Car</h3>
+                <button class="modal-close" id="closeEditModal"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <form id="editCarForm" enctype="multipart/form-data">
+                    <input type="hidden" name="id" id="editCarId">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label">Brand</label>
+                            <input type="text" class="form-control" name="brand" id="editBrand" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Model</label>
+                            <input type="text" class="form-control" name="model" id="editModel" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Year</label>
+                            <input type="number" class="form-control" name="year" id="editYear" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Category</label>
+                            <select class="form-control" name="category" id="editCategory" required>
+                                <option value="Sports">Sports</option>
+                                <option value="Luxury">Luxury</option>
+                                <option value="SUV">SUV</option>
+                                <option value="Sedan">Sedan</option>
+                            </select>
+                        </div>
+                        <div class="form-group" id="editExtraFieldContainer" style="display:none;">
+						    <label class="form-label" id="editExtraFieldLabel"></label>
+						    <input type="number" class="form-control" id="editExtraFieldInput">
+						</div>
+						                        
+                        <div class="form-group">
+                            <label class="form-label">Price per Day (AED)</label>
+                            <input type="number" class="form-control" name="price" id="editPrice" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Engine</label>
+                            <input type="text" class="form-control" name="engine" id="editEngine" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Transmission</label>
+                            <select class="form-control" name="transmission" id="editTransmission" required>
+                                <option value="Automatic">Automatic</option>
+                                <option value="Manual">Manual</option>
+                                <option value="PDK">PDK</option>
+                                <option value="DCT">DCT</option>
+                                <option value="7-Speed DCT">7-Speed DCT</option>
+                                <option value="8-Speed Auto">8-Speed Auto</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Drivetrain</label>
+                            <select class="form-control" name="drivetrain" id="editDrivetrain" required>
+                                <option value="AWD">AWD</option>
+                                <option value="RWD">RWD</option>
+                                <option value="FWD">FWD</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Fuel Type</label>
+                            <select class="form-control" name="fuelType" id="editFuelType" required>
+                                <option value="Premium Gasoline">Premium Gasoline</option>
+                                <option value="Diesel">Diesel</option>
+                                <option value="Electric">Electric</option>
+                                <option value="Hybrid">Hybrid</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Exterior Color</label>
+                            <input type="text" class="form-control" name="color" id="editColor" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Interior</label>
+                            <input type="text" class="form-control" name="interior" id="editInterior" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Features (comma separated)</label>
+                        <textarea class="form-control" name="features" id="editFeatures" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Update Image (optional)</label>
+                        <input type="file" class="form-control" name="image" accept="image/*">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="cancelEdit">Cancel</button>
+                <button class="btn btn-primary" type="submit" form="editCarForm">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<script src="../js/common.js"></script>
+    <script src="../js/inventory.js"></script>
+</body>
+</html>

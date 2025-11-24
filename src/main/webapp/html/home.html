@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Breezy Drives - Luxury Cars</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;900&family=Bebas+Neue&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/common.css" rel="stylesheet">
+    <link href="../css/home.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg custom-nav">
+        <div class="container-fluid nav-container">
+            <div class="logo">LUXURY DRIVES</div>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="home.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="cards.html">Available Cars</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="form.html">Booking</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="admin.html">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="faqpage.html">FAQ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="login.html">
+                            <button class="btn-login" id="login">Login</button></a>
+                    </li>
+                    <li class="nav-item">
+                        <button class="btn-lightmode" id="lightmode">Light Mode</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Hero Section with 3 Layers -->
+    <section class="hero">
+
+        <div class="hero-background"></div>
+
+        <!-- Layer 2: Large Typography (Behind Car) -->
+        <div class="hero-text">
+            LUXURY CARS
+        </div>
+
+        <!-- Layer 3: Car PNG without Background (In Front) -->
+        <img src="../other_imgs/noshadow.png" alt="Luxury Car" class="car-cutout">
+
+        <div class="description-text">
+            <p> Step into a world where power meets elegance. Our exclusive collection of luxury cars redefines what it
+                means to drive — each model crafted for performance, comfort, and prestige. Whether you're chasing the
+                thrill of speed or the art of sophistication, your journey begins here.</p>
+        </div>
+    </section>
+
+    <!-- Popular Cars Carousel -->
+
+    <section class="popular-cars-section" id="popular-cars">
+        <h2 class="popular-cars-title red-gradient-text">Popular cars</h2>
+
+        <div class="carousel-wrapper">
+            <div id="car-carousel-container">
+            </div>
+
+            <button class="carousel-control prev" id="prev-btn">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="carousel-control next" id="next-btn">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+
+        <div id="car-details-card" class="car-details-card-container">
+        </div>
+
+    </section>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+	<script src="../js/common.js"> </script>
+    <script src="../js/home.js"> </script>
+</body>
+
+</html>
