@@ -4,10 +4,12 @@
     animation: fadeInUp 1s ease;
     margin-top: 5%;
 }
+/*set body color */
+
 body{
     background-color: black;
 }
-
+/* add fading effects for the page */
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -20,6 +22,7 @@ body{
     }
 }
 
+/* 'our inventory title styling */
 .hero-title {
     font-size: 4.5rem;
     font-weight: 750;
@@ -32,6 +35,7 @@ body{
     text-shadow: 0 0 80px rgba(255, 215, 0, 0.5);
 }
 
+/* lightmode for title */
 body.light-mode .hero-title {
     background: linear-gradient(90deg, #ffbe0b,#ffea8e);
     -webkit-background-clip: text;
@@ -40,6 +44,7 @@ body.light-mode .hero-title {
     padding-bottom: 10px;
     font-weight: 700;
 }
+
 
 @keyframes titleShine {
 
@@ -53,8 +58,7 @@ body.light-mode .hero-title {
     }
 }
 
-
-
+/* descriptoin styling */
 .hero-subtitle {
     font-size: 1.3rem;
     color: rgba(255, 255, 255, 0.8);
@@ -68,6 +72,7 @@ body.light-mode .hero-subtitle {
     color: rgba(0, 0, 0, 0.8);
 }
 
+/*styling for the filter and filter buttons */
 .filters {
     display: flex;
     justify-content: center;
@@ -97,7 +102,7 @@ body.light-mode .filter-btn {
     border: 2px solid rgba(255, 187, 0, 0.7);
     color: #000;
 }
-
+/* hover and active effects */
 .filter-btn::before {
     content: '';
     position: absolute;
@@ -137,16 +142,18 @@ body.light-mode .filter-btn.active {
     z-index: 1;
 }
 
+
 .inventory {
     max-width: 1400px;
     margin: 0 auto;
     padding: 2rem;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); /* automatically add as many columns as fit in the space, min width 380px*/
     gap: 2.5rem;
     animation: fadeInUp 1s ease 0.6s both;
 }
 
+/* customize card styling*/
 .car-card {
     background: rgba(255, 255, 255, 0.03);
     backdrop-filter: blur(20px);
@@ -198,6 +205,7 @@ body.light-mode .car-card:hover {
         inset 0 0 50px rgba(255, 215, 0, 0.15);
 }
 
+/* resizing of car image*/
 .car-image {
     width: 100%;
     height: 280px;
@@ -224,23 +232,6 @@ body.light-mode .car-image::before {
     background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.3) 100%);
 }
 
-.badge {
-    position: absolute;
-    top: 1.5rem;
-    right: 1.5rem;
-    padding: 0.7rem 1.5rem;
-    background: linear-gradient(135deg, #ffd700, #ffed4e);
-    color: #000;
-    border-radius: 50px;
-    font-size: 0.8rem;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    z-index: 2;
-    box-shadow: 0 5px 20px rgba(255, 215, 0, 0.5);
-    animation: pulse 2s ease-in-out infinite;
-}
-
 @keyframes pulse {
 
     0%,
@@ -252,7 +243,7 @@ body.light-mode .car-image::before {
         transform: scale(1.05);
     }
 }
-
+/* style the details about car*/
 .car-info {
     padding: 2rem;
     position: relative;
@@ -359,7 +350,13 @@ body.light-mode .price {
     -webkit-text-fill-color: transparent;
     background-clip: text;
 }
-
+/* car buttons container */
+.car-buttons {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+/* view button */
 .view-btn {
     padding: 0.9rem 2rem;
     background-color: rgba(0, 0, 0, 0);
@@ -411,14 +408,7 @@ body.light-mode .view-btn:hover {
     z-index: 1;
 }
 
-/* Car buttons container */
-.car-buttons {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-}
-
-/* Book Now button */
+/* book Now button */
 .book-btn {
     padding: 0.9rem 2rem;
     background-color: rgba(0, 0, 0, 0);
@@ -457,7 +447,7 @@ body.light-mode .book-btn {
     height: 300px;
 }
 
-/* Hover animation */
+/* hover animation */
 .book-btn:hover {
     transform: translateY(-3px);
     box-shadow: 0 10px 30px rgba(255, 215, 0, 0.5);
@@ -467,7 +457,6 @@ body.light-mode .book-btn:hover {
     box-shadow: 0 10px 30px rgba(212, 165, 0, 0.4);
 }
 
-/* Span wrapper (text stays above animation) */
 .book-btn span {
     position: relative;
     z-index: 1;
@@ -480,7 +469,7 @@ body.light-mode .book-btn:hover {
 }
 
 .price-row {
-    text-align: center; /* optional */
+    text-align: center; 
     font-size: 18px;
     font-weight: 600;
 }
@@ -499,28 +488,15 @@ body.light-mode .book-btn:hover {
 }
 
 
-/* Responsive - stack buttons on mobile */
-@media (max-width: 768px) {
-    .car-buttons {
-        flex-direction: column;
-        width: 100%;
-    }
-    
-    .view-btn,
-    .book-btn {
-        width: 100%;
-        text-align: center;
-    }
-}
 
 
-/* MODAL WRAPPER */
+/*modal styling */
 .details-modal {
     position: fixed;
     inset: 0;
-    display: none;
+    display: none;            /* hidden till shown by JS */
     justify-content: center;
-    align-items: center;
+    align-items: center;        
     backdrop-filter: blur(10px);
     background: rgba(0,0,0,0.6);
     z-index: 9999;
@@ -532,7 +508,7 @@ body.light-mode .book-btn:hover {
     to   { opacity: 1; }
 }
 
-/* -------- DARK/LIGHT MODE BASE -------- */
+/* dark/light mode for modal contents - */
 .details-modal-content {
     background: #111;
     color: white;
@@ -560,7 +536,6 @@ body.light-mode #detailsTitle {
     -webkit-text-fill-color: transparent;
 }
 
-/* -------- CATEGORY -------- */
 .details-category {
     font-size: 1rem;
     letter-spacing: 2px;
@@ -571,7 +546,6 @@ body.light-mode .details-category {
     color: #c9a200;
 }
 
-/* -------- IMAGE -------- */
 .details-main-img {
     border-radius: 12px;
     box-shadow: 0 0 25px rgba(255,215,0,0.2);
@@ -581,7 +555,6 @@ body.light-mode .details-main-img {
     box-shadow: 0 0 20px rgba(212,165,0,0.15);
 }
 
-/* -------- PRICE TAG -------- */
 .details-price-tag {
     display: inline-block;
     padding: 10px 25px;
@@ -595,8 +568,6 @@ body.light-mode .details-main-img {
 body.light-mode .details-price-tag {
     background: linear-gradient(90deg, #d4a500, #ffe8a0);
 }
-
-/* -------- SPECS GRID -------- */
 .details-spec-grid p strong {
     color: #ffd700;
 }
@@ -605,7 +576,6 @@ body.light-mode .details-spec-grid p strong {
     color: #c9a200;
 }
 
-/* -------- FEATURES LIST -------- */
 .details-features-list li {
     border-bottom: 1px solid rgba(255,255,255,0.1);
     padding: 6px 0;
@@ -615,18 +585,32 @@ body.light-mode .details-features-list li {
     border-bottom: 1px solid rgba(0,0,0,0.1);
 }
 
-
+/* responsive - stack buttons on mobile */
+@media (max-width: 768px) {
+    .car-buttons {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .view-btn,
+    .book-btn {
+        width: 100%;
+        text-align: center;
+    }
+}
+/* use media query to improve adaptiveness to screen sizes */
 @media (max-width: 768px) {
     .hero-title {
         font-size: 2.5rem;
     }
 
     .inventory {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr;        /* adjust to one column */
         gap: 2rem;
     }
 
     .orb {
-        display: none;
+        display: none;  /* hide decorative elements to prevent any overlap*/
     }
 }
+
