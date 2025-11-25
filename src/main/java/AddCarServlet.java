@@ -7,31 +7,30 @@ import java.nio.file.*;
 
 @WebServlet("/AddCarServlet")
 @MultipartConfig(
-    fileSizeThreshold = 1024 * 1024,      // 1 MB
-    maxFileSize = 1024 * 1024 * 5,         // 5 MB
-    maxRequestSize = 1024 * 1024 * 10      // 10 MB
+	    fileSizeThreshold = 1024 * 1024,      // file kept in memory until it reaches 1 mb
+	    maxFileSize = 1024 * 1024 * 5,        // maximum size of one uploaded file is 5 mb
+	    maxRequestSize = 1024 * 1024 * 10     // total size of the whole request is limited to 10 mb
 )
+
 public class AddCarServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
-	private static final String URL = "jdbc:mysql://localhost:3306/luxury_drives";
-    private static final String USER = "root";
-    private static final String PASSWORD = "pranav123";
-    
-    // Change this to your actual upload directory
-    private static final String UPLOAD_DIR = "uploads";
+
+    private static final String UPLOAD_DIR = "uploads"; // folder for storing images
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         response.setContentType("application/json");
         PrintWriter out = response.getWriter();
+        Connection con = null;
 
         try {
+            // load driver and open db connection
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection(URL, USER, PASSWORD);
+            con = DBConnection.getConnection();
             
-            // Get form parameters
+            // reading all normal form fields
             int id = Integer.parseInt(request.getParameter("id"));
             String brand = request.getParameter("brand");
             String model = request.getParameter("model");
@@ -50,27 +49,33 @@ public class AddCarServlet extends HttpServlet {
             String interior = request.getParameter("interior");
             String features = request.getParameter("features");
             
-            // Handle file upload
+            // handle file upload and build image path
             String imagePath = "";
             Part filePart = request.getPart("image");
+
             if (filePart != null && filePart.getSize() > 0) {
+
+                // get original file name
                 String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
 
-				String uploadPath = getServletContext().getRealPath("/" + UPLOAD_DIR);
+                // real folder path inside server
+                String uploadPath = getServletContext().getRealPath("/" + UPLOAD_DIR);
 
-                
-                // Create upload directory if it doesn't exist
+                // create folder if missing
                 File uploadDir = new File(uploadPath);
                 if (!uploadDir.exists()) {
                     uploadDir.mkdir();
                 }
                 
-                // Save the file
+                // save uploaded image
                 filePart.write(uploadPath + File.separator + fileName);
+
+                // relative path stored in db
                 imagePath = request.getContextPath() + "/" + UPLOAD_DIR + "/" + fileName;
             }
 
-            // Fixed: 15 columns need 15 placeholders
+
+            // insert into main cars table
             PreparedStatement ps = con.prepareStatement(
                 "INSERT INTO cars (id, brand, model, year, category, price, engine, transmission, drivetrain, fuel_type, color, interior, features, image) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
             );
@@ -92,52 +97,55 @@ public class AddCarServlet extends HttpServlet {
 
             ps.executeUpdate();
             ps.close();
-            
 
-            
-         // After inserting into cars table, add this:
+            // insert into child table depending on category
+            if (category.equals("Luxury")) {
+                // luxury car gets mileage
+                PreparedStatement psLux = con.prepareStatement(
+                    "INSERT INTO luxury_cars (car_id, mileage) VALUES (?, ?)"
+                );
+                psLux.setInt(1, id);
+                psLux.setDouble(2, Double.parseDouble(mileage));
+                psLux.executeUpdate();
+                psLux.close();
+            }
+            else if (category.equals("Sports")) {
+                // sport car gets top speed
+                PreparedStatement psSport = con.prepareStatement(
+                    "INSERT INTO sport_cars (car_id, top_speed) VALUES (?, ?)"
+                );
+                psSport.setInt(1, id);
+                psSport.setInt(2, Integer.parseInt(topSpeed));
+                psSport.executeUpdate();
+                psSport.close();
+            }
+            else if (category.equals("SUV")) {
+                // suv gets seating capacity
+                PreparedStatement psSuv = con.prepareStatement(
+                    "INSERT INTO suv_cars (car_id, seating_capacity) VALUES (?, ?)"
+                );
+                psSuv.setInt(1, id);
+                psSuv.setInt(2, Integer.parseInt(seating));
+                psSuv.executeUpdate();
+                psSuv.close();
+            }
+            else if (category.equals("Sedan")) {
+                // sedan gets trunk space
+                PreparedStatement psSedan = con.prepareStatement(
+                    "INSERT INTO sedan_cars (car_id, trunk_space_liters) VALUES (?, ?)"
+                );
+                psSedan.setInt(1, id);
+                psSedan.setInt(2, Integer.parseInt(trunkSpace));
+                psSedan.executeUpdate();
+                psSedan.close();
+            }
 
-         // Insert into category-specific table
-         if (category.equals("Luxury")) {
-             PreparedStatement psLux = con.prepareStatement(
-                 "INSERT INTO luxury_cars (car_id, mileage) VALUES (?, ?)"
-             );
-             psLux.setInt(1, id);
-             psLux.setDouble(2, Double.parseDouble(mileage)); // Default mileage or get from form
-             psLux.executeUpdate();
-             psLux.close();
-         }
-         else if (category.equals("Sports")) {
-             PreparedStatement psSport = con.prepareStatement(
-                 "INSERT INTO sport_cars (car_id, top_speed) VALUES (?, ?)"
-             );
-             psSport.setInt(1, id);
-             psSport.setInt(2, Integer.parseInt(topSpeed)); // Default or get from form
-             psSport.executeUpdate();
-             psSport.close();
-         }
-         else if (category.equals("SUV")) {
-             PreparedStatement psSuv = con.prepareStatement(
-                 "INSERT INTO suv_cars (car_id, seating_capacity) VALUES (?, ?)"
-             );
-             psSuv.setInt(1, id);
-             psSuv.setInt(2, Integer.parseInt(seating)); // Default or get from form
-             psSuv.executeUpdate();
-             psSuv.close();
-         }
-         else if (category.equals("Sedan")) {
-             PreparedStatement psSedan = con.prepareStatement(
-                 "INSERT INTO sedan_cars (car_id, trunk_space_liters) VALUES (?, ?)"
-             );
-             psSedan.setInt(1, id);
-             psSedan.setInt(2, Integer.parseInt(trunkSpace)); // Default or get from form
-             psSedan.executeUpdate();
-             psSedan.close();
-         }
-         con.close();
-         out.print("{\"success\":true}");
+            // all inserts done
+            con.close();
+            out.print("{\"success\":true}");
 
         } catch (Exception e) {
+            // send error response if anything breaks
             e.printStackTrace();
             out.print("{\"error\":\"" + e.getMessage().replace("\"", "'") + "\"}");
         }
