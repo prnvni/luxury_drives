@@ -14,7 +14,7 @@
 
 <body>
 
-    <!-- NAVBAR -->
+    <!-- navbar -->
     <nav class="navbar navbar-expand-lg custom-nav">
         <div class="container-fluid nav-container">
             <div class="logo">LUXURY DRIVES</div>
@@ -49,13 +49,13 @@
         </div>
     </nav>
 
-    <!-- HERO SECTION -->
+    <!-- page title and description -->
     <section class="hero">
         <h1 class="hero-title">Our Inventory</h1>
         <p class="hero-subtitle">Discover our curated collection of premium automobiles.</p>
     </section>
 
-    <!-- FILTER BUTTONS -->
+    <!-- filter buttons -->
     <div class="filters">
         <button class="filter-btn active">All Vehicles</button>
         <button class="filter-btn">Luxury</button>
@@ -64,16 +64,15 @@
         <button class="filter-btn">Sedan</button>
     </div>
 
-    <!-- CAR GRID -->
+    <!-- grid for loading the cars -->
     <div class="inventory" id="inventory"></div>
 
-    <!-- ========================= -->
-    <!-- VIEW DETAILS MODAL (BOOTSTRAP STYLE) -->
-    <!-- ========================= -->
+    
+    <!-- modal for viewing the details of specific car, using bootstrap -->   
     <div class="modal fade" id="detailsModal" tabindex="-1">
         <div class="modal-dialog modal-xl modal-dialog-centered">
             <div class="modal-content details-modal-content">
-
+    
                 <div class="modal-header">
                     <h3 class="modal-title" id="detailsTitle"></h3>
                     <button type="button" class="btn-close" id="closeDetails" data-bs-dismiss="modal"></button>
@@ -85,7 +84,7 @@
 
                         <div class="row gy-4">
 
-                            <!-- IMAGE COLUMN -->
+                            <!-- image of car -->
                             <div class="col-12 col-md-5 text-center">
                                 <img id="detailsImage" src="" class="img-fluid rounded shadow" alt="Car Image">
                                 <div class="details-price-tag mt-3 fs-4 fw-bold">
@@ -93,7 +92,7 @@
                                 </div>
                             </div>
 
-                            <!-- DETAILS COLUMN -->
+                            <!-- details -->
                             <div class="col-12 col-md-7">
 
                                 <h5 class="text-warning" id="detailsCategory"></h5>
@@ -124,7 +123,6 @@
         </div>
     </div>
 
-    <!-- SCRIPTS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 
     <script src="../js/cards.js"></script>
@@ -133,3 +131,4 @@
 </body>
 
 </html>
+
