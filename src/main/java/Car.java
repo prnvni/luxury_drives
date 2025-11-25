@@ -1,4 +1,5 @@
 public abstract class Car {
+    //attributes of the car, protected so child classes can use
     protected int id;   
     protected String brand;
     protected String model;
@@ -13,12 +14,12 @@ public abstract class Car {
     protected String fuelType;
     protected String features;
     protected String image;
-
+    //constructor
     public Car(int id, String brand, String model, int year, String engine,
                String transmission, double price, String category, String color,
                String interior, String drivetrain, String fuelType,
                String features, String image) {
-
+        //set car attributes
         this.id = id;  
         this.brand = brand;
         this.model = model;
@@ -37,6 +38,7 @@ public abstract class Car {
 
     @Override
     public String toString() {
+        // return car details in json style for sending to frontend
         return "{"
                 + "\"id\":" + id + ","   
                 + "\"brand\":\"" + brand + "\","
@@ -54,3 +56,4 @@ public abstract class Car {
                 + "\"image\":\"" + image + "\"";
     }
 }
+
