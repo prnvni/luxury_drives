@@ -1,32 +1,27 @@
 import java.io.*;
 import java.sql.*;
-import jakarta.servlet.*;
 import jakarta.servlet.annotation.*;
 import jakarta.servlet.http.*;
 
 @WebServlet("/CarServlet")
 public class CarServlet extends HttpServlet {
 
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Override
+    @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws IOException {
 
+        // set response to json so frontend can read it
         resp.setContentType("application/json");
         PrintWriter out = resp.getWriter();
+        Connection con = null;
 
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/luxury_drives",
-                    "root",
-                    "pranav123"
-            );
+            // open db connection
+            con = DBConnection.getConnection();
 
+            // query joins base car table with subtype tables to detect car type
             String query =
                 "SELECT c.*, l.mileage, s.top_speed, d.trunk_space_liters, u.seating_capacity " +
                 "FROM cars c " +
@@ -38,14 +33,17 @@ public class CarServlet extends HttpServlet {
             PreparedStatement ps = con.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
 
+            // start json array
             out.print("[");
             boolean first = true;
 
             while (rs.next()) {
 
+                // add comma between objects
                 if (!first) out.print(",");
                 first = false;
 
+                // read common fields
                 int id = rs.getInt("id");
                 String brand = rs.getString("brand");
                 String model = rs.getString("model");
@@ -63,38 +61,46 @@ public class CarServlet extends HttpServlet {
 
                 Car car = null;
 
+                // check which extra field exists to know the car type
                 if (rs.getObject("mileage") != null) {
+                    // luxury car
                     car = new LuxuryCar(id, brand, model, year, engine, transmission, price,
                             category, color, interior, drivetrain, fuelType,
                             features, image, rs.getDouble("mileage"));
                 }
                 else if (rs.getObject("top_speed") != null) {
+                    // sport car
                     car = new SportCar(id, brand, model, year, engine, transmission, price,
                             category, color, interior, drivetrain, fuelType,
                             features, image, rs.getInt("top_speed"));
                 }
                 else if (rs.getObject("trunk_space_liters") != null) {
+                    // sedan
                     car = new SedanCar(id, brand, model, year, engine, transmission, price,
                             category, color, interior, drivetrain, fuelType,
                             features, image, rs.getInt("trunk_space_liters"));
                 }
                 else if (rs.getObject("seating_capacity") != null) {
+                    // suv
                     car = new SUVCar(id, brand, model, year, engine, transmission, price,
                             category, color, interior, drivetrain, fuelType,
                             features, image, rs.getInt("seating_capacity"));
                 }
-                
 
+                // print car json
                 out.print(car.toString());
             }
 
+            // close json array
             out.print("]");
-            
+
+            // cleanup
             rs.close();
             ps.close();
             con.close();
 
         } catch (Exception e) {
+            // error fallback
             e.printStackTrace();
             out.print("[]");
         }
