@@ -107,12 +107,12 @@
 
  .hero-text {
      position: absolute;
-     top: 20%;
+     top: 24%;
      left: 50%;
      transform: translate(-50%, -50%);
      z-index: 2;
      font-family: "Bebas Neue", sans-serif;
-     font-size: clamp(100px, 30vw, 225px);
+     font-size: clamp(100px, 30vw, 258px);
      font-style: normal;
      font-weight: 400;
      line-height: 1;
@@ -166,7 +166,7 @@
 
  .car-cutout {
      position: absolute;
-     top: 50%;
+     top: 53%;
      left: 50%;
      transform: translate(-50%, -50%);
      z-index: 3;
@@ -177,63 +177,7 @@
      filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.5));
  }
 
- @media (max-width: 991px) {
-     .navbar-collapse {
-         margin-top: 1rem;
-     }
 
-     .navbar-nav {
-         gap: 0;
-     }
-
-     .nav-item {
-         padding: 0.5rem 0;
-     }
-
-     .btn-lightmode {
-         margin-top: 0.5rem;
-         width: 100%;
-     }
- }
-
- @media (max-width: 768px) {
-     .logo {
-         font-size: 1.4rem;
-     }
- }
-
- @media (max-width: 480px) {
-     .logo {
-         font-size: 16px;
-     }
-
-     .hero-text {
-         font-size: clamp(40px, 20vw, 100px);
-         line-height: 1;
-     }
-
-     .car-cutout {
-         width: 95%;
-     }
- }
-
- @media (max-height: 600px) and (orientation: landscape) {
-     .hero {
-         height: auto;
-         min-height: 100vh;
-         padding: 80px 0 20px;
-     }
-
-     .hero-text {
-         font-size: clamp(50px, 12vh, 150px);
-         line-height: 1;
-     }
-
-     .car-cutout {
-         width: 50%;
-         max-width: 600px;
-     }
- }
 
  /* popular cars carousel */
 
@@ -502,5 +446,67 @@ body.light-mode .popular-cars-title{
 
      .detail-label {
          font-size: 0.6rem;
+     }
+ }
+ 
+  @media (max-width: 991px) {
+     .navbar-collapse {
+         margin-top: 1rem;
+     }
+
+     .navbar-nav {
+         gap: 0;
+     }
+
+     .nav-item {
+         padding: 0.5rem 0;
+     }
+
+     .btn-lightmode {
+         margin-top: 0.5rem;
+         width: 100%;
+     }
+ }
+
+ @media (max-width: 768px) {
+     .logo {
+         font-size: 1.4rem;
+     }
+ }
+
+ @media (max-width: 480px) {
+     .logo {
+         font-size: 16px;
+     }
+
+     .hero-text {
+         font-size: clamp(40px, 20vw, 100px);
+         line-height: 1;
+     }
+
+     .car-cutout {
+         width: 95%;
+     }
+     .carousel-item img{
+     	margin-top:1rem;
+     }
+     
+ }
+
+ @media (max-height: 600px) and (orientation: landscape) {
+     .hero {
+         height: auto;
+         min-height: 100vh;
+         padding: 80px 0 20px;
+     }
+
+     .hero-text {
+         font-size: clamp(50px, 12vh, 150px);
+         line-height: 1;
+     }
+
+     .car-cutout {
+         width: 50%;
+         max-width: 600px;
      }
  }
