@@ -53,7 +53,8 @@ public abstract class Car {
                 + "\"drivetrain\":\"" + drivetrain + "\","
                 + "\"fuelType\":\"" + fuelType + "\","
                 + "\"features\":\"" + features + "\","
-                + "\"image\":\"" + image + "\"";
+                + "\"image\":\"" + image + "\"";  //bracket left open since the child class completes it with the extra feature
     }
 }
+
 
