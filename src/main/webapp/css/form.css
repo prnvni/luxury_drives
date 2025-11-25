@@ -6,11 +6,13 @@
 }
 
 .form-title {
-  padding: 5%;
+	
+  padding: 2%;
   font-size: 3.5rem;
   font-weight: 700;
   text-align: center;
   margin-top: 100px;
+ 
   background: linear-gradient(135deg, #ffd700 0%, #fff 50%, #00d4ff 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -32,7 +34,7 @@ body{
   color:white;
 }
 body.light-mode .form-title {
-  background: linear-gradient(90deg, #00d4ff, #ff006e, #ffd000);
+  color:yellow;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
