@@ -1,4 +1,6 @@
-//inherit abstract Car class        
+
+//inherit abstract Car class  
+
 public class SUVCar extends Car {
     //extra feature of SUVCar : seating capacity
     private int seatingCapacity;
@@ -13,13 +15,14 @@ public class SUVCar extends Car {
 
         this.seatingCapacity = seatingCapacity;
     }
-
+            //return json format 
+    public int getseatingCapacity() {
+    	return this.seatingCapacity;
+    }
     @Override
     public String toString() {
-        //return json format 
         return super.toString()
                 + ",\"seatingCapacity\":" + seatingCapacity
                 + "}";
     }
 }
-
