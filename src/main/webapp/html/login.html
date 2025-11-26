@@ -47,9 +47,14 @@
 
     <div class="login-container">
         <div class="login-card shadow-lg">
-            <h2 class="text-center mb-4">LOGIN</h2>
-
-            <form>
+            <h2 class="text-center mb-4" id="loginTitle">USER LOGIN
+            </h2>
+    <div class="login-type-toggle">
+                <button class="toggle-btn active" id="userTab">User</button>
+                <button class="toggle-btn" id="adminTab">Admin</button>
+            </div>
+            
+             <form id="loginForm">
                 <div class="mb-3">
                     <label for="usernameEmail" class="form-label">Email / Username</label>
                     <input type="text" class="form-control custom-input" id="usernameEmail" 
