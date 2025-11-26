@@ -1,64 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Luxury Drives - Rental Form</title>
 
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+  
+  <link href="../css/common.css" rel="stylesheet">
+  <link href="../css/form.css" rel="stylesheet">
 
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet; 
-import jakarta.servlet.http.HttpServlet;    
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+  <style>
+    /* Add this style for the map div to ensure it has a height */
+    
+  </style>
 
-@WebServlet("/submitBooking")
-public class BookingServlet extends HttpServlet {
-    private static final long serialVersionUID = 1L;
+	 <!-- Leaflet (FREE, no API key needed) -->
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+	<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) 
-            throws ServletException, IOException {
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg custom-nav">
+    <div class="container-fluid nav-container">
+      <div class="logo">LUXURY DRIVES</div>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="home.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="cards.html">Available Cars</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="form.html">Booking</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="faqpage.html">FAQ</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="login.html">
+              <button class="btn-login" id="login">Login</button>
+            </a>
+          </li>
+          <li class="nav-item">
+            <button class="btn-lightmode" id="lightmode">Light Mode</button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <section class="form-section">
+    <div class="container">
+        <h1 class="form-title">Book Your Ride</h1>
+        <p class="form-subtitle">Enter your details to rent your dream car</p>
+
+        <div class="booking-layout">
+            <!-- Selected Car Summary (Shows on the side) -->
+            <div class="car-summary" id="carSummary" style="display: none;">
+                <h3>Selected Vehicle</h3>
+                <div class="summary-card">
+                    <img id="summaryImage" src="" alt="Car">
+                    <div class="summary-details">
+                        <h4 id="summaryName"></h4>
+                        <p id="summaryYear"></p>
+                        <div class="summary-specs">
+                            <span id="summaryEngine"></span>
+                            <span id="summaryTransmission"></span>
+                        </div>
+                        <p class="summary-price" id="summaryPrice"></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Booking Form -->
+            <form class="rental-form shadow-lg p-4" action="../submitBooking" id="bookingForm" method="POST">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label for="fullname" class="form-label">Full Name</label>
+                        <input type="text" class="form-control" id="fullname" name="fullname" placeholder="John Doe" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="email" class="form-label">Email Address</label>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="john@example.com" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="phone" class="form-label">Phone Number</label>
+                        <input type="tel" class="form-control" id="phone" name="phone" placeholder="+971 50 123 4567" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="car" class="form-label">Car Model</label>
+                        <input type="text" class="form-control" id="car" name="car_model" placeholder="Select a car" required readonly>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="start" class="form-label">Start Date</label>
+                        <input type="date" class="form-control" id="start" name="start_date" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="end" class="form-label">End Date</label>
+                        <input type="date" class="form-control" id="end" name="end_date" required>
+                    </div>
+                    <div class="col-12">
+                        <label for="location" class="form-label">Pickup Location</label>
+                        <!-- The input field for location will be updated by the map click -->
+                        <input type="text" class="form-control" id="location" name="pickup_location" placeholder="Click on the map to select location" required readonly>
+                        <!-- Hidden fields to store latitude and longitude -->
+                        <input type="hidden" id="pickup_lat" name="pickup_lat">
+                        <input type="hidden" id="pickup_lng" name="pickup_lng">
+                        <div id="map"></div>
+                        <small class="form-text text-muted">Click on the map above to set your pickup location.</small>
+                    </div>
+                    <div class="col-12">
+                        <label for="notes" class="form-label">Additional Notes (optional)</label>
+                        <textarea class="form-control" id="notes" name="notes" rows="3" placeholder="Any specific requests?"></textarea>
+                    </div>
+                    <div class="col-12 text-center">
+                        <button type="submit" class="btn btn-primary btn-submit">Submit Booking</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+  <script>
+    // Check if a car was selected from the cards page
+    const selectedCar = JSON.parse(localStorage.getItem('selectedCarForBooking') || 'null');
+    
+    if (selectedCar) {
+        // Show the car summary
+        document.getElementById('carSummary').style.display = 'block';
         
-        String name = request.getParameter("fullname");
-        String email = request.getParameter("email");
-        String phone = request.getParameter("phone");
-        String car = request.getParameter("car_model");
-        String start = request.getParameter("start_date");
-        String end = request.getParameter("end_date");
-        String location = request.getParameter("pickup_location");
-        String notes = request.getParameter("notes");
+        // Populate summary details
+        document.getElementById('summaryImage').src = selectedCar.image;
+        document.getElementById('summaryName').textContent = `${selectedCar.brand} ${selectedCar.model}`;
+        document.getElementById('summaryYear').textContent = `${selectedCar.year} Model`;
+        document.getElementById('summaryEngine').textContent = selectedCar.engine;
+        document.getElementById('summaryTransmission').textContent = selectedCar.transmission;
+        document.getElementById('summaryPrice').textContent = `AED ${selectedCar.price}/Day`;
         
-        Connection conn = null;
-        PreparedStatement stmt = null;
-        
+        // Pre-fill the car model in the form
+        document.getElementById('car').value = `${selectedCar.brand} ${selectedCar.model}`;
+    }
+    
+    // Set minimum date to today
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('start').min = today;
+    document.getElementById('end').min = today;
+  </script>
+
+  <script>
+    let map;
+    let marker;
+
+    // Reverse geocoding using Nominatim (OpenStreetMap)
+    async function reverseGeocode(lat, lng) {
+        const url = `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json`;
+
         try {
-            conn = DBConnection.getConnection();
-            
-            String sql = "INSERT INTO bookings (full_name, email, phone_number, car_model, start_date, end_date, pickup_location, additional_notes) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-          
-            stmt = conn.prepareStatement(sql);
-        
-            stmt.setString(1, name);
-            stmt.setString(2, email);
-            stmt.setString(3, phone);
-            stmt.setString(4, car);
-          
-            stmt.setString(5, start); 
-            stmt.setString(6, end);
-            stmt.setString(7, location);
-            stmt.setString(8, notes);
-          
-            stmt.executeUpdate();
-        
-            response.sendRedirect(request.getContextPath() + "/html/home.html?booking=success");
-            
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
-         
-            response.sendRedirect(request.getContextPath() + "/html/form.html?error=dbfail");
-            
-        } finally {
-            if (stmt != null) try { stmt.close(); } catch (SQLException ignore) {}
-            DBConnection.closeConnection(conn);
+            const response = await fetch(url);
+            const data = await response.json();
+            return data.display_name || `Lat: ${lat}, Lng: ${lng}`;
+        } catch (err) {
+            return `Lat: ${lat}, Lng: ${lng}`;
         }
     }
-}
+
+    // Initialize free Leaflet map
+    function initLeafletMap() {
+        map = L.map('map').setView([25.2048, 55.2708], 10);
+
+        // Load free OpenStreetMap tiles
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        // Handle map clicks
+        map.on('click', async function(e) {
+            const lat = e.latlng.lat;
+            const lng = e.latlng.lng;
+
+            // Save lat/lng into hidden inputs
+            document.getElementById("pickup_lat").value = lat;
+            document.getElementById("pickup_lng").value = lng;
+
+            // Remove existing marker
+            if (marker) {
+                map.removeLayer(marker);
+            }
+
+            // Add new marker
+            marker = L.marker([lat, lng]).addTo(map);
+
+            // Reverse-geocode → convert to address
+            const address = await reverseGeocode(lat, lng);
+
+            // Update the address input field
+            document.getElementById("location").value = address;
+        });
+    }
+
+    // Start map
+    initLeafletMap();
+    document.getElementById("bookingForm").addEventListener("submit", function () {
+    });
+
+    
+</script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+  <script src="../js/common.js"></script>
+
+    
+</body>
+</html>
