@@ -7,17 +7,15 @@ import java.nio.file.*;
 
 @WebServlet("/EditCarServlet")
 @MultipartConfig(
-    fileSizeThreshold = 1024 * 1024,
-    maxFileSize = 1024 * 1024 * 5,
-    maxRequestSize = 1024 * 1024 * 10
+    fileSizeThreshold = 1024 * 1024,   // file stored in memory until 1 mb
+    maxFileSize = 1024 * 1024 * 5,     // max single uploaded file is 5 mb
+    maxRequestSize = 1024 * 1024 * 10  // full multipart request cannot exceed 10 mb
 )
 public class EditCarServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
-	private static final String URL = "jdbc:mysql://localhost:3306/luxury_drives";
-    private static final String USER = "root";
-    private static final String PASSWORD = "pranav123";
-    private static final String UPLOAD_DIR = "uploads";
+
+    private static final String UPLOAD_DIR = "uploads"; // folder used for saving images
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -25,11 +23,14 @@ public class EditCarServlet extends HttpServlet {
 
         response.setContentType("application/json");
         PrintWriter out = response.getWriter();
+        Connection con = null;
 
         try {
+            // connect to database
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection(URL, USER, PASSWORD);
+            con = DBConnection.getConnection();
 
+            // read normal form fields
             int id = Integer.parseInt(request.getParameter("id"));
             String brand = request.getParameter("brand");
             String model = request.getParameter("model");
@@ -44,9 +45,9 @@ public class EditCarServlet extends HttpServlet {
             String interior = request.getParameter("interior");
             String features = request.getParameter("features");
 
-            // ============================
-            // 1. GET OLD CATEGORY
-            // ============================
+            // -----------------------------
+            // 1 get old category and old image
+            // -----------------------------
             String oldCategory = "";
             PreparedStatement getPs = con.prepareStatement(
                 "SELECT category, image FROM cars WHERE id=?"
@@ -62,28 +63,35 @@ public class EditCarServlet extends HttpServlet {
             rs.close();
             getPs.close();
 
-            // ============================
-            // 2. HANDLE IMAGE UPLOAD (OPTIONAL) gpt
-            // ============================
+            // -----------------------------
+            // 2 handle optional new image upload
+            // -----------------------------
             Part filePart = request.getPart("image");
             String finalImagePath = oldImagePath;
 
+            // if user uploaded a new file replace old image
             if (filePart != null && filePart.getSize() > 0) {
+
+                // extract file name
                 String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+
+                // create upload folder path
                 String uploadPath = getServletContext().getRealPath("/" + UPLOAD_DIR);
 
-
+                // create folder if missing
                 File uploadDir = new File(uploadPath);
                 if (!uploadDir.exists()) uploadDir.mkdir();
 
+                // save the uploaded file to server
                 filePart.write(uploadPath + File.separator + fileName);
 
+                // build final visible path for database
                 finalImagePath = request.getContextPath() + "/" + UPLOAD_DIR + "/" + fileName;
             }
 
-            // ============================
-            // 3. UPDATE MAIN CAR TABLE
-            // ============================
+            // -----------------------------
+            // 3 update main cars table
+            // -----------------------------
             PreparedStatement ps = con.prepareStatement(
                 "UPDATE cars SET brand=?, model=?, year=?, category=?, price=?, engine=?, "
                         + "transmission=?, drivetrain=?, fuel_type=?, color=?, interior=?, features=?, image=? "
@@ -108,17 +116,19 @@ public class EditCarServlet extends HttpServlet {
             ps.executeUpdate();
             ps.close();
 
-            // ============================
-            // 4. IF CATEGORY CHANGED → UPDATE SUBCLASS TABLES
-            // ============================
-         // ALWAYS DELETE AND RE-INSERT SUBCLASS DATA (even if category is same)
+            // -----------------------------
+            // 4 reset and reinsert subclass table based on new category
+            // -----------------------------
+
+            // remove old subclass entries first
             con.prepareStatement("DELETE FROM sport_cars WHERE car_id=" + id).executeUpdate();
             con.prepareStatement("DELETE FROM luxury_cars WHERE car_id=" + id).executeUpdate();
             con.prepareStatement("DELETE FROM suv_cars WHERE car_id=" + id).executeUpdate();
             con.prepareStatement("DELETE FROM sedan_cars WHERE car_id=" + id).executeUpdate();
 
-            // INSERT INTO CORRECT TABLE
+            // insert new subclass details
             if (newCategory.equals("Luxury")) {
+                // luxury uses mileage
                 double mileage = Double.parseDouble(request.getParameter("mileage"));
                 PreparedStatement l = con.prepareStatement(
                         "INSERT INTO luxury_cars (car_id, mileage) VALUES (?,?)");
@@ -128,6 +138,7 @@ public class EditCarServlet extends HttpServlet {
                 l.close();
             }
             else if (newCategory.equals("Sports")) {
+                // sports uses top speed
                 int topSpeed = Integer.parseInt(request.getParameter("top_speed"));
                 PreparedStatement s = con.prepareStatement(
                         "INSERT INTO sport_cars (car_id, top_speed) VALUES (?,?)");
@@ -137,6 +148,7 @@ public class EditCarServlet extends HttpServlet {
                 s.close();
             }
             else if (newCategory.equals("SUV")) {
+                // suv uses seating capacity
                 int seating = Integer.parseInt(request.getParameter("seating_capacity"));
                 PreparedStatement s2 = con.prepareStatement(
                         "INSERT INTO suv_cars (car_id, seating_capacity) VALUES (?,?)");
@@ -146,6 +158,7 @@ public class EditCarServlet extends HttpServlet {
                 s2.close();
             }
             else if (newCategory.equals("Sedan")) {
+                // sedan uses trunk space
                 int trunk = Integer.parseInt(request.getParameter("trunk_space_liters"));
                 PreparedStatement s3 = con.prepareStatement(
                         "INSERT INTO sedan_cars (car_id, trunk_space_liters) VALUES (?,?)");
@@ -155,13 +168,13 @@ public class EditCarServlet extends HttpServlet {
                 s3.close();
             }
 
-
-
+            // send success response
             con.close();
             out.print("{\"success\":true}");
 
         
-            } catch (Exception e) {
+        } catch (Exception e) {
+            // send error if something breaks
             e.printStackTrace();
             out.print("{\"error\":\"" + e.getMessage().replace("\"", "'") + "\"}");
         }
