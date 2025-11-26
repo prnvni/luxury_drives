@@ -209,15 +209,9 @@
 
     // Start map
     initLeafletMap();
-    document.getElementById("bookingForm").addEventListener("submit", function (e) {
-        e.preventDefault(); // stop default submit
-
-        alert("Booking submitted successfully! You will be contacted shortly.");
-
-        setTimeout(() => {
-            window.location.href = "home.html";
-        }, 10);
+    document.getElementById("bookingForm").addEventListener("submit", function () {
     });
+
     
 </script>
 
