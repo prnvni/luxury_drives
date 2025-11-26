@@ -1,6 +1,7 @@
+
 //inherits abstract Car class
 public class SportCar extends Car {
-    //extra feature of sports car: topspeed
+        //extra feature of sports car: topspeed
     private int topSpeed;
     //constructor
     public SportCar(int id,String brand, String model, int year, String engine, String transmission,
@@ -12,13 +13,14 @@ public class SportCar extends Car {
                 drivetrain, fuelType, features, image);
         this.topSpeed = topSpeed;
     }
-
+      //return json format response
+    public int gettopSpeed() {
+    	return this.topSpeed;
+    }
     @Override
     public String toString() {
-        //return json format response
         return super.toString()
                 + ",\"topSpeed\":" + topSpeed
                 + "}";
     }
 }
-
