@@ -4,16 +4,10 @@ import java.sql.SQLException;
 
 public class DBConnection {
 
-    // url of the mysql database we are connecting to
-    private static final String URL = "jdbc:mysql://localhost:3306/luxury_drives"; 
-    
-    // username for the mysql connection
+	private static final String URL = "jdbc:mysql://localhost:3306/luxury_drives";
     private static final String USER = "root";
+    private static final String PASSWORD = "33333333";
 
-    // password for the mysql connection
-    private static final String PASSWORD = "pranav123"; 
-
-    // mysql driver class used to load the jdbc driver
     private static final String DRIVER_CLASS = "com.mysql.cj.jdbc.Driver"; 
  
     public static Connection getConnection() throws SQLException, ClassNotFoundException {
