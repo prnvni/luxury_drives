@@ -1,0 +1,15 @@
+.settings/
+.classpath
+.project
+.metadata/
+
+build/
+bin/
+out/
+
+*.class
+*.jar
+*.war
+
+.DS_Store
+Thumbs.db
