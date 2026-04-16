@@ -5,8 +5,8 @@ import java.sql.SQLException;
 public class DBConnection {
 
 	private static final String URL = "jdbc:mysql://localhost:3306/luxury_drives";
-    private static final String USER = "root";
-    private static final String PASSWORD = "33333333";
+    private static final String USER = "";
+    private static final String PASSWORD = "";
 
     private static final String DRIVER_CLASS = "com.mysql.cj.jdbc.Driver"; 
  
