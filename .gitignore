@@ -4,8 +4,9 @@
 .metadata/
 
 build/
-bin/
 out/
+target/
+*.class
 
 *.class
 *.jar
